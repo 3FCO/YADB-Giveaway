@@ -5,8 +5,11 @@ import me.efco.commands.interfaces.AbstractCommand;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SlashCommandManager extends ListenerAdapter {
@@ -16,6 +19,14 @@ public class SlashCommandManager extends ListenerAdapter {
     private SlashCommandManager() {
         commands = new HashMap<>();
 
+        commands.put("setup", new SetupCommand(
+                "setup", "Used for setting necessary information for the bot to run",
+                List.of(),
+                List.of(
+                    new OptionData(OptionType.ROLE,  "role", "This role can create/manage giveaways")
+                ),
+                List.of()
+        ));
     }
 
     @Override

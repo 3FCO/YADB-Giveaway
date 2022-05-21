@@ -1,6 +1,9 @@
 package me.efco;
 
+import me.efco.commands.SlashCommandManager;
 import me.efco.data.ConfigLoader;
+import me.efco.events.BotJoinEvent;
+import me.efco.events.BotReadyEvent;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.Permission;
@@ -15,6 +18,8 @@ public class Bot {
     public static void main(String[] args) throws LoginException {
         api = JDABuilder.createDefault(ConfigLoader.getInstance().loadConfigByName("api_token"))
                 .setActivity(Activity.playing("Under construction"))
+                .addEventListeners(SlashCommandManager.getInstance())
+                .addEventListeners(new BotJoinEvent(), new BotReadyEvent())
                 .build();
 
         //This is so we can make sweet sweet slash commands
